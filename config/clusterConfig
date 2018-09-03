@@ -1,7 +1,11 @@
 ## TODO: 说明
 
-## TODO：跳板机
+## TODO：WDOGGY跳板机
 K8S_WDOGGY=(192.168.99.100)
 
 ## TODO: node节点所有资源
-K8S_NODES
+K8S_NODES=
+
+# Machine
+# TODO: 配置wdoggy（ansible所在服务器）安装机器的网卡名
+HOST_NETCARD_NAME="ens160"
