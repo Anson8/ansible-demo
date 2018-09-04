@@ -11,7 +11,6 @@ icadmin ALL=(ALL) NOPASSWD: ALL
 2. 检查wdoggy是否能通外网
 3. 手动安装git客户端
 ```
-    sudo add-apt-repository ppa:git-core/ppa
     sudo apt-get update
     sudo apt-get install git
 ```

@@ -1,0 +1,30 @@
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: k8s-tomcat
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: k8s-tomcat
+    spec:
+      containers:
+      - name: k8s-tomcat
+        image: tomcat
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: k8s-tomcat
+spec:
+  sports:
+  - name: k8s-tomcat
+    port: 12080
+    targetPort: 8080
+    nodePort: 30180
+  selector:
+    app: k8s-tomocat
+  type: NodePort
+
