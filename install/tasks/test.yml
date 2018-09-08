@@ -1,0 +1,10 @@
+---
+- name: Tomcat deploy
+  hosts: all
+  become: yes
+  become_user: root
+
+  tasks:
+    - name: touch file
+      shell: touch /Users/hyq/Desktop/icarbonx/code/icarbonx/ops-deploy/icarbonx.file
+

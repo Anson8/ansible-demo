@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
 
 CLUSTER_PATH="$(cd "$(dirname "${BASH_SOURCE[0]}")" && echo "$PWD")"
-TASKS_PATH=$CLUSTER_PATH/k8sservice/tasks/
-## TODO 引入clusterConfig配置文件
-. $CLUSTER_PATH/../config/clusterConfig
+TASKS_PATH=$CLUSTER_PATH/service/tasks/
+## TODO 引入deployConfig配置文件
+. $CLUSTER_PATH/../config/deployConfig
 
 #验证ip地址的正确性
 function ip_valid()  {
@@ -49,10 +49,10 @@ function deployTomcat(){
 
 ## TODO 测试test
 function deployTest(){
-     local ip = ${K8S_RUN_NODE[0]}
+     local ip=${K8S_RUN_NODE[0]}
      if ip_valid $ip; then
-        echo "ansible-playbook $TASKS_PATH/test.yml "
-        ansible-playbook $TASKS_PATH/test.yml -i $ip, -e "ansible_user=$USER ansible_port=22 ansible_ssh_pass=$PASSWD ansible_become_pass=$PASSWD"
+        echo "ansible-playbook $TASKS_PATH/test.yml to $ip"
+        ansible-playbook $TASKS_PATH/test.yml
      else
         # ip valid
         echo "ERROR: invalid glusterfs server ip = $ip"
