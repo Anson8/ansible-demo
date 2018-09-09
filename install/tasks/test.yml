@@ -6,5 +6,5 @@
 
   tasks:
     - name: touch file
-      shell: touch /Users/hyq/Desktop/icarbonx/code/icarbonx/ops-deploy/icarbonx.file
+      shell: touch /home/icx-admin/icarbonx_test.file
 

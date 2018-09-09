@@ -9,12 +9,12 @@ echo $OPS_ROOT
 ## TODO 服务器各种组件安装
 options=("ansible" "hostname" "kerberos" )
 if [ $# -ne 1 ];then
-	echo "Input invalid! Support: ansible | hostname | kerberos"
+	echo "Input invalid! Support: ansible | test | sshaddkey | hostname | kerberos"
 	exit 1
 fi
 
 if [ $1 = "help" ];then
-	echo "update.sh args: ansible | hostname | kerberos"
+	echo "update.sh args: ansible | test | sshaddkey | hostname | kerberos"
 	exit 0
 fi
 
@@ -43,6 +43,24 @@ if [ $# -ge 1 ]; then
             exit 2
         fi
         echo "Start to install ansible...................Successfully!"
+        exit 0;;
+    "test")
+        testAnsible
+        ret=$?
+        if [ $ret -ne 0 ];then
+            echo "Start to Test ansible...................Failed! Ret=$ret"
+            exit 2
+        fi
+        echo "Start to Test ansible...................Successfully!"
+        exit 0;;
+    "sshaddkey")
+        sshAddkey
+        ret=$?
+        if [ $ret -ne 0 ];then
+            echo "Start to deploy sshAddkey...................Failed! Ret=$ret"
+            exit 2
+        fi
+        echo "Start to deploy sshAddkey...................Successfully!"
         exit 0;;
     "hostname")
         hostnameDeploy
