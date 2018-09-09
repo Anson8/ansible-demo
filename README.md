@@ -33,8 +33,13 @@ icx-admin ALL=(ALL) NOPASSWD: ALL
     start_deploy.sh
         k8s服务部署启动
     start_install.sh
-        系统预安装等启动，启动方式如下
-        ./
-        
+        系统预安装等启动.
     start_recover.sh
         k8s机器恢复启动
+        
+        
+## 免密登录配置
+    在本机icx-amin用户下创建公钥
+      ssh-keygen -t rsa
+    在目标服务器上创建icx-admin用户并设置登录密码
+       

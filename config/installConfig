@@ -15,7 +15,7 @@ K8S_RUN_NODE=(10.100.0.2)
 SECURITY_SUDOER="ops-admin"
 ### TODO: 提供拥有root权限的账号密码,便于ansible进行安装使用
 USER="icx-admin"
-PASSWD="admin1234"
+PASSWD="admin123"
 
 ### TODO: 需要部署ssh免密登录的节点
 TEST_NODES=(192.168.31.145)
@@ -26,5 +26,7 @@ SSHKADDKEYS_NODES=(192.168.31.145)
 ### TODO: 需要部署kerberos的节点
 KERBEROS_NODES=(192.168.31.145)
 
+### TODO: hostname定义
+HOSTNAME=icarbonx
 ### TODO: 需要修改hostname的节点
-HOSTNAME_NODES=
+HOSTNAME_NODES=(192.168.31.145)

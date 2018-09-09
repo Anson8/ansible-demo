@@ -1,0 +1,37 @@
+- hosts: all
+  become: yes
+  become_user: root
+  tasks:
+    - name: Set hostname
+      hostname: name={{ hostname }}
+
+    - name: Create default user
+      user: name="{{ security_sudoer }}" comment="Terminus, Inc" shell=/bin/bash
+    
+    - name: Create ssh config dir
+      file: path=~/.ssh state=directory recurse=yes
+ 
+    - name: Set up authorized_keys for the deploy user
+      authorized_key: user="{{ security_sudoer }}" key="{{ lookup("file", "~/.ssh/id_rsa.pub") }}"
+
+    - name: Add configured user accounts to passwordless sudoers.
+      lineinfile:
+        dest: /etc/sudoers
+        regexp: "^{{ item }}"
+        line: "{{ item }} ALL=(ALL) NOPASSWD: ALL"
+        state: present
+        validate: "visudo -cf %s"
+      with_items: ["{{ security_sudoer }}"]
+
+#    - name: config dns server
+#      copy:
+#          content: |
+#              nameserver 8.8.8.8
+#              nameserver 202.101.172.35
+#          dest: /etc/resolv.conf
+
+#    - name: systemctl stop firewalld && systemctl disable firewalld
+#      service:
+#        name: firewalld
+#        state: stopped
+#        enabled: no
