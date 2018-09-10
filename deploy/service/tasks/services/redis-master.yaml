@@ -27,13 +27,13 @@ spec:
           volumeMounts:
             - name: data
               mountPath: /var/lib/redis
-            - name: redis-config
+            - name: redis-conf
               mountPath: /usr/local/etc/redis
       volumes:
         - name: data
           hostPath:
             path: /data/redis
-        - name: redis-config
+        - name: redis-conf
           configMap:
             name: redis-config
             items:

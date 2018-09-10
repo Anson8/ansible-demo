@@ -33,12 +33,20 @@ spec:
               memory: "256Mi"
 
           volumeMounts:
-            - name: redis-storage
+            - name: data
               mountPath: /var/lib/redis
+            - name: redis-conf
+              mountPath: /etc/redis
       volumes:
-        - name: redis-storage
+        - name: data
           hostPath:
             path: /data/redis
+        - name: redis-conf
+          configMap:
+            name: redis-config
+            items:
+            - key: redis-slave
+              path: redis.conf
       nodeSelector:
         kubernetes.io/hostname: 10.47.0.251
 
