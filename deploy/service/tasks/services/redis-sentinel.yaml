@@ -2,7 +2,7 @@ apiVersion: v1
 kind: ReplicationController
 metadata:
   name: redis-sentinel
-  namespace: component
+  namespace: default
   labels:
     name: redis-sentinel
     version: v1
@@ -24,7 +24,14 @@ spec:
           ports:
             - containerPort: 26379
               protocol: TCP
-          resources: {}
+          resources:
+            limits:
+              cpu: "0.5"
+              memory: "512Mi"
+            request:
+              cpu: "0.2"
+              memory: "256Mi"
+
           volumeMounts:
             - name: redis-storage
               mountPath: /var/lib/redis
