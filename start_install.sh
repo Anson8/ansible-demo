@@ -7,14 +7,14 @@ echo $OPS_ROOT
 . $OPS_ROOT/install/install.sh
 
 ## TODO 服务器各种组件安装
-options=("ansible" "hostname" "kerberos" )
+options=("ansible" "test" "sshaddkey" "hostname" "kerberos" )
 if [ $# -ne 1 ];then
 	echo "Input invalid! Support: ansible | test | sshaddkey | hostname | kerberos"
 	exit 1
 fi
 
 if [ $1 = "help" ];then
-	echo "update.sh args: ansible | test | sshaddkey | hostname | kerberos"
+	echo "start_install.sh args: ansible | test | sshaddkey | hostname | kerberos"
 	exit 0
 fi
 

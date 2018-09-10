@@ -2,18 +2,19 @@
   become: yes
   become_user: root
   tasks:
+## 设置主机hostname
     - name: Set hostname
       hostname: name={{ hostname }}
-
+## 创建一个安全用户
     - name: Create default user
-      user: name="{{ security_sudoer }}" comment="Terminus, Inc" shell=/bin/bash
-    
+      user: name="{{ security_sudoer }}" comment="Icarbonx，Anson" shell=/bin/bash
+## 创建SSH配置文件路径
     - name: Create ssh config dir
       file: path=~/.ssh state=directory recurse=yes
- 
+## 设置免密登录
     - name: Set up authorized_keys for the deploy user
       authorized_key: user="{{ security_sudoer }}" key="{{ lookup("file", "~/.ssh/id_rsa.pub") }}"
-
+## 将安全用户账号添加到无密码的sudoers
     - name: Add configured user accounts to passwordless sudoers.
       lineinfile:
         dest: /etc/sudoers
@@ -22,14 +23,14 @@
         state: present
         validate: "visudo -cf %s"
       with_items: ["{{ security_sudoer }}"]
-
-#    - name: config dns server
-#      copy:
-#          content: |
-#              nameserver 8.8.8.8
-#              nameserver 202.101.172.35
-#          dest: /etc/resolv.conf
-
+## 配置主机的DNS
+    - name: config dns server
+      copy:
+          content: |
+              nameserver 8.8.8.8
+              nameserver 202.101.172.35
+          dest: /etc/resolv.conf
+## 关闭防火墙
 #    - name: systemctl stop firewalld && systemctl disable firewalld
 #      service:
 #        name: firewalld

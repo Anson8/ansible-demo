@@ -1,0 +1,9 @@
+kind: ConfigMap
+apiVersion: v1
+data:
+  redis-master: |
+    timeout = 600
+    requirepass = icx@beta12
+    masterauth = icx@beta12
+    slave-serve-stale-data = yes
+    slave-read-only = yes
