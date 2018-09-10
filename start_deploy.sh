@@ -40,19 +40,19 @@ if [ $# -ge 1 ]; then
         redisDeploy
         ret=$?
         if [ $ret -ne 0 ];then
-            echo "Start to install ansible...................Failed! Ret=$ret"
+            echo "Start to deploy $1...................Failed! Ret=$ret"
             exit 2
         fi
-        echo "Start to install ansible...................Successfully!"
+        echo "Start to deploy $1...................Successfully!"
         exit 0;;
     "confluence")
         confluenceDeploy
         ret=$?
         if [ $ret -ne 0 ];then
-            echo "Start to Test ansible...................Failed! Ret=$ret"
+            echo "Start to deploy $1...................Failed! Ret=$ret"
             exit 2
         fi
-        echo "Start to Test ansible...................Successfully!"
+        echo "Start to deploy $1...................Successfully!"
         exit 0;;
     esac
 fi
