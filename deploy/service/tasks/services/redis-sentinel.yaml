@@ -1,11 +1,11 @@
 apiVersion: v1
 kind: ReplicationController
 metadata:
-  name: redis-sentinel
-  namespace: default
   labels:
     name: redis-sentinel
     version: v1
+  name: redis-sentinel
+  namespace: default
 spec:
   replicas: 3
   selector:
@@ -18,35 +18,28 @@ spec:
         version: v1
     spec:
       containers:
-        - image: ccr.ccs.tencentyun.com/develop/redis-cluster-sentinel
-          name: redis-sentinel
-          imagePullPolicy: IfNotPresent
-          ports:
-            - containerPort: 26379
-              protocol: TCP
-          resources:
-            limits:
-              cpu: "0.5"
-              memory: "512Mi"
-            request:
-              cpu: "0.2"
-              memory: "256Mi"
-
-          volumeMounts:
-            - name: data
-              mountPath: /var/lib/redis
-            - name: redis-conf
-              mountPath: /etc/redis
-      volumes:
-        - name: data
-          hostPath:
-            path: /data/redis
+      - image: ccr.ccs.tencentyun.com/develop/redis-cluster-sentinel
+        imagePullPolicy: IfNotPresent
+        name: redis-sentinel
+        ports:
+        - containerPort: 26379
+          protocol: TCP
+        volumeMounts:
+        - name: redis-storage
+          mountPath: /var/lib/redis
         - name: redis-conf
-          configMap:
-            name: redis-config
-            items:
-            - key: redis-slave
-              path: redis.conf
+          mountPath: /etc/redis
+      volumes:
+      volumes:
+      - name: redis-storage
+        hostPath:
+          path: /mdata/redis
+      - name: redis-conf
+        configMap:
+          name: redis-config
+          items:
+          - key: redis-slave
+            path: redis.conf
       nodeSelector:
         kubernetes.io/hostname: 10.47.0.251
 
@@ -60,8 +53,6 @@ metadata:
   labels:
     name: redis-sentinel
 spec:
-  externalIPs:
-    - 10.27.0.251
   ports:
     - name: sentinel
       port: 26379

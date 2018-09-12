@@ -1,12 +1,14 @@
 apiVersion: extensions/v1beta1
-kind: ReplicationController
+kind: Deployment
 metadata:
   labels:
     app: elasticsearch
   name: elasticsearch
   namespace: default
 spec:
+  progressDeadlineSeconds: 600
   replicas: 1
+  revisionHistoryLimit: 10
   selector:
     matchLabels:
       app: elasticsearch
@@ -16,8 +18,7 @@ spec:
         app: elasticsearch
     spec:
       containers:
-      - name: elasticsearch
-        image: ccr.ccs.tencentyun.com/common/elasticsearch:5.1.1
+      - image: ccr.ccs.tencentyun.com/common/elasticsearch:5.1.1
         imagePullPolicy: Always
         name: elasticsearch
         ports:
@@ -29,19 +30,23 @@ spec:
           protocol: TCP
         resources:
           limits:
-            cpu: 2
-            memory: 3064Mi
+            cpu: "2"
+            memory: 3000Mi
           requests:
             cpu: 500m
-            memory: 1024Mi
+            memory: 1Gi
         volumeMounts:
         - mountPath: /usr/share/elasticsearch/plugins
           name: es-plugin
         - mountPath: /usr/share/elasticsearch/config
           name: es-config
+        - mountPath: /usr/share/elasticsearch/data
+          name: es-data
+      dnsPolicy: ClusterFirst
       nodeSelector:
         kubernetes.io/hostname: 10.47.0.26
       restartPolicy: Always
+      schedulerName: default-scheduler
       volumes:
       - hostPath:
           path: /data/es/plugins
@@ -49,6 +54,10 @@ spec:
       - hostPath:
           path: /data/es/config
         name: es-config
+      - hostPath:
+          path: /data/es/data
+        name: es-data
+
 ---
 apiVersion: v1
 kind: Service
@@ -69,5 +78,3 @@ spec:
     targetPort: 9300
   selector:
     app: elasticsearch
-
-
