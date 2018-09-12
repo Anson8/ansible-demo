@@ -2,7 +2,7 @@ apiVersion: v1
 kind: ReplicationController
 metadata:
   labels:
-    name: redis-sentinel
+    name: redis-ç
     version: v1
   name: redis-sentinel
   namespace: default
@@ -28,18 +28,28 @@ spec:
         - name: redis-storage
           mountPath: /var/lib/redis
         - name: redis-conf
-          mountPath: /etc/redis
+          mountPath: /etc/redis/sentinel.conf
+          subPath: sentinel.conf
+        - name: redis-run
+          mountPath: /etc/redis/run.sh
+          subPath: run.sh
       volumes:
       volumes:
       - name: redis-storage
         hostPath:
-          path: /mdata/redis
+          path: /data/redis
       - name: redis-conf
         configMap:
           name: redis-config
           items:
-          - key: redis-slave
-            path: redis.conf
+          - key: redis-sentinel-conf
+            path: sentinel.conf
+      - name: redis-run
+        configMap:
+          name: redis-config
+          items:
+          - key: redis-sentinel-run
+            path: run.sh
       nodeSelector:
         kubernetes.io/hostname: 10.47.0.251
 
