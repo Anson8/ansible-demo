@@ -1,0 +1,73 @@
+apiVersion: extensions/v1beta1
+kind: ReplicationController
+metadata:
+  labels:
+    app: elasticsearch
+  name: elasticsearch
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: elasticsearch
+  template:
+    metadata:
+      labels:
+        app: elasticsearch
+    spec:
+      containers:
+      - name: elasticsearch
+        image: ccr.ccs.tencentyun.com/common/elasticsearch:5.1.1
+        imagePullPolicy: Always
+        name: elasticsearch
+        ports:
+        - containerPort: 9200
+          name: db
+          protocol: TCP
+        - containerPort: 9300
+          name: transport
+          protocol: TCP
+        resources:
+          limits:
+            cpu: 2
+            memory: 3064Mi
+          requests:
+            cpu: 500m
+            memory: 1024Mi
+        volumeMounts:
+        - mountPath: /usr/share/elasticsearch/plugins
+          name: es-plugin
+        - mountPath: /usr/share/elasticsearch/config
+          name: es-config
+      nodeSelector:
+        kubernetes.io/hostname: 10.47.0.26
+      restartPolicy: Always
+      volumes:
+      - hostPath:
+          path: /data/es/plugins
+        name: es-plugin
+      - hostPath:
+          path: /data/es/config
+        name: es-config
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    svc-name: elasticsearch
+  name: elasticsearch
+  namespace: default
+spec:
+  ports:
+  - name: http
+    port: 9200
+    protocol: TCP
+    targetPort: 9200
+  - name: node
+    port: 9300
+    protocol: TCP
+    targetPort: 9300
+  selector:
+    app: elasticsearch
+
+

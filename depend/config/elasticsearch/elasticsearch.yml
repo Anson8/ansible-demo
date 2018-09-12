@@ -1,0 +1,16 @@
+## 绑定监听IP
+network.host: 0.0.0.0
+## 设置这个参数来保证集群中的节点可以知道其它N个有master资格的节点.默认为1,对于大的集群来说,可以设置大一点的值(2-4)
+discovery.zen.minimum_master_nodes: 1
+## 设置节点间交互的tcp端口,默认是9300
+transport.tcp.port: 9300
+## 设置是否压缩tcp传输时的数据，默认为false,不压缩
+transport.tcp.compress: true
+## 设置对外服务的http端口,默认为9200
+http.port: 9200
+# 锁定内存，不让JVM写入swapping，避免降低ES的性能
+bootstrap.mlockall: true
+# 缓存类型设置为Soft Reference，只有当内存不够时才会进行回收
+index.cache.field.max_size: 50000
+index.cache.field.expire: 10m
+index.cache.field.type: soft

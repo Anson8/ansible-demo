@@ -43,47 +43,14 @@ data:
     client-output-buffer-limit pubsub 32mb 8mb 60
     hz 10
     aof-rewrite-incremental-fsync yes
-  redis-slave:
-    daemonize yes
-    port 6379
-    bind 0.0.0.0
-    timeout 600
-    tcp-keepalive 0
-    loglevel notice
-    databases 16
-    save 900 1
-    save 300 10
-    save 60 10000
-    stop-writes-on-bgsave-error yes
-    rdbcompression yes
-    rdbchecksum yes
-    dbfilename dump-6379.rdb
-    masterauth icx@beta12
-    slave-serve-stale-data yes
-    slave-read-only yes
-    repl-disable-tcp-nodelay no
-    slave-priority 100
-    requirepass icx@beta12
-    appendonly yes
-    appendfsync everysec
-    no-appendfsync-on-rewrite no
-    auto-aof-rewrite-percentage 100
-    auto-aof-rewrite-min-size 64mb
-    lua-time-limit 5000
-    slowlog-log-slower-than 10000
-    slowlog-max-len 128
-    notify-keyspace-events ""
-    hash-max-ziplist-entries 512
-    hash-max-ziplist-value 64
-    list-max-ziplist-entries 512
-    list-max-ziplist-value 64
-    set-max-intset-entries 512
-    zset-max-ziplist-entries 128
-    zset-max-ziplist-value 64
-    activerehashing yes
-    client-output-buffer-limit normal 0 0 0
-    client-output-buffer-limit slave 256mb 64mb 60
-    client-output-buffer-limit pubsub 32mb 8mb 60
-    hz 10
-    aof-rewrite-incremental-fsync yes
+  redis-slave: |
+    port 26379
+    sentinel monitor mymaster redis-master 6379 2
+    sentinel down-after-milliseconds mymaster 5000
+    sentinel failover-timeout mymaster 15000
+    sentinel auth-pass mymaster icx@beta12
+    sentinel config-epoch mymaster 4
+    dir "/data"
+    sentinel leader-epoch mymaster 5
+    sentinel current-epoch 5
 
