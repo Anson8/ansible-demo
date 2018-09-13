@@ -27,20 +27,20 @@ spec:
         volumeMounts:
         - name: redis-storage
           mountPath: /var/lib/redis
-        - name: redis-conf
-          mountPath: /etc/redis/sentinel.conf
-          subPath: sentinel.conf
+#        - name: redis-conf
+#          mountPath: /etc/redis/sentinel.conf
+#          subPath: sentinel.conf
       volumes:
       volumes:
       - name: redis-storage
         hostPath:
           path: /data/redis
-      - name: redis-conf
-        configMap:
-          name: redis-config
-          items:
-          - key: redis-sentinel
-            path: sentinel.conf
+#      - name: redis-conf
+#        configMap:
+#          name: redis-config
+#          items:
+#          - key: redis-sentinel
+#            path: sentinel.conf
       nodeSelector:
         kubernetes.io/hostname: 10.47.0.251
 

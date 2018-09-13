@@ -25,20 +25,20 @@ spec:
           - containerPort: 6379
             protocol: TCP
           volumeMounts:
-            - name: data
+            - name: redis-storage
               mountPath: /var/lib/redis
-            - name: redis-conf
-              mountPath: /usr/local/etc/redis
+#            - name: redis-conf
+#              mountPath: /usr/local/etc/redis
       volumes:
-        - name: data
+        - name: redis-storage
           hostPath:
             path: /data/redis
-        - name: redis-conf
-          configMap:
-            name: redis-config
-            items:
-            - key: redis-master
-              path: redis.conf
+#        - name: redis-conf
+#          configMap:
+#            name: redis-config
+#            items:
+#            - key: redis-master
+#              path: redis.conf
       nodeSelector:
         kubernetes.io/hostname: 10.47.0.26
 
