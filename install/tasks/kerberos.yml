@@ -2,8 +2,30 @@
   become: yes
   become_user: root
   tasks:
-    - name: Copy krb5.conf to /etc
-      copy: src= ../../depend/kerberos/krb5.conf  dest=/etc/
+    - name: copy krb5.conf to /etc
+      copy: src= ../../depend/config/kerberos/krb5.conf  dest=/etc/
 
-    - name: Set sshd_config
-      blockinfile: path=/tmp/sshd_config block="KerberosAuthentication yes\nKerberosTicketCleanup yes"
+    - name: Open KerberosAuthentication...
+      lineinfile:
+          dest: /tmp/sshd_config
+          regexp: "^#KerberosAuthentication"
+          line: "KerberosAuthentication yes"
+
+    - name: Open KerberosTicketCleanup...
+      lineinfile:
+          dest: /tmp/sshd_config
+          regexp: "^#KerberosTicketCleanup"
+          line: "KerberosTicketCleanup yes"
+
+    - name: Open GSSAPIAuthentication...
+      lineinfile:
+          dest: /tmp/sshd_config
+          regexp: "^#GSSAPIAuthentication"
+          line: "GSSAPIAuthentication yes"
+
+    - name: Open GSSAPICleanupCredentials...
+      lineinfile:
+          dest: /tmp/sshd_config
+          regexp: "^#GSSAPICleanupCredentials"
+          line: "GSSAPICleanupCredentials yes"
+
