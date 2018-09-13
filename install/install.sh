@@ -112,7 +112,7 @@ function hostnameDeploy() {
 
 }
 
-## TODO 部署kerberos到所有服务器
+## TODO 部署kerberos到服务器
 function kerberosDeploy() {
     #  deploy kerberos
     nodes=${KERBEROS_NODES[@]};
@@ -124,7 +124,7 @@ function kerberosDeploy() {
         for ip in $nodes;
         do
             echo "ansible-playbook for this $ip"
-            ansible-playbook $TASKS_PATH/test.yml -i $ip, -e " ansible_user=$USER ansible_port=22 ansible_ssh_pass=$PASSWD ansible_become_pass=$PASSWD condition=false"
+            ansible-playbook $TASKS_PATH/kerberos.yml -i $ip, -e " ansible_user=$USER ansible_port=22 ansible_ssh_pass=$PASSWD ansible_become_pass=$PASSWD condition=false"
 
         done
         echo "Start to deploy kerberos...................Successfully!";;

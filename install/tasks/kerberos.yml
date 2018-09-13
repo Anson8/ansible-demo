@@ -1,0 +1,9 @@
+- hosts: all
+  become: yes
+  become_user: root
+  tasks:
+    - name: Copy krb5.conf to /etc
+      copy: src= ../../depend/kerberos/krb5.conf  dest=/etc/
+
+    - name: Set sshd_config
+      blockinfile: path=/tmp/sshd_config block="KerberosAuthentication yes\nKerberosTicketCleanup yes"

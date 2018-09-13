@@ -14,7 +14,7 @@ K8S_RUN_NODE=(10.100.0.2)
 ### TODO: 安全账号, 防止滥用root权限
 SECURITY_SUDOER="ops-admin"
 ### TODO: 提供拥有root权限的账号密码,便于ansible进行安装使用
-USER="icx-admin"
+USER="ops-admin"
 PASSWD="admin123"
 
 ### TODO: 需要部署ssh免密登录的节点
