@@ -43,11 +43,3 @@ data:
     client-output-buffer-limit pubsub 32mb 8mb 60
     hz 10
     aof-rewrite-incremental-fsync yes
-  redis-sentinel: |
-    port 26379
-    sentinel monitor mymaster redis-master 6379 2
-    sentinel down-after-milliseconds mymaster 5000
-    sentinel failover-timeout mymaster 15000
-    sentinel auth-pass mymaster icx@beta12
-    sentinel config-epoch mymaster 4
-

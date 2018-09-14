@@ -1,11 +1,11 @@
 #!/usr/bin/env bash
 
 INSTALL_PATH="$(cd "$(dirname "${BASH_SOURCE[0]}")" && echo "$PWD")"
-PREREQS_PATH=$INSTALL_PATH/prereqs
 TASKS_PATH=$INSTALL_PATH/tasks
 ## TODO 引入installConfig配置文件
 . $INSTALL_PATH/../config/installConfig
-. $PREREQS_PATH/dog.sh
+. $INSTALL_PATH/common/ip-detect
+. $INSTALL_PATH/prereqs/dog.sh
 
 
 ## TODO 安装ansible
@@ -29,7 +29,6 @@ function clusterInstaller() {
         echo "Input error, please try again."
         exit 2;;
     esac
-
 }
 
 ## TODO 测试ansible功能，创建文件
@@ -115,6 +114,7 @@ function hostnameDeploy() {
 ## TODO 部署kerberos到服务器
 function kerberosDeploy() {
     #  deploy kerberos
+    local host_name
     nodes=${KERBEROS_NODES[@]};
     read -p "Do you want to deploy kerberos for [$nodes] ?[Y/N]:" answer
     answer=$(echo $answer)
@@ -123,9 +123,22 @@ function kerberosDeploy() {
         echo "Start to deploy kerberos."
         for ip in $nodes;
         do
-            echo "ansible-playbook for this $ip"
-            ansible-playbook $TASKS_PATH/kerberos.yml -i $ip, -e " ansible_user=$USER ansible_port=22 ansible_ssh_pass=$PASSWD ansible_become_pass=$PASSWD condition=false"
+            if ip_valid $ip;then
+                ret=`sethostname $ip`
+                host_name=${ret}
+                echo "ansible-playbook for this [$ip] and hostname is set to [$host_name]."
+                #ansible-playbook $TASKS_PATH/kerberos.yml -i $ip, -e "hostname=$host_name ansible_user=$USER ansible_port=22 ansible_ssh_pass=$PASSWD ansible_become_pass=$PASSWD condition=false"
+                echo "add principal and add keytab for this [$ip]."
+                addprinc $ip
+                echo "copy the krb5.keytab to this [$ip]."
 
+                echo "add kerberos principal to this [$ip]."
+
+            else
+                # ip valid
+                echo "ERROR: invalid slave public ip = $ip."
+                return 4
+            fi
         done
         echo "Start to deploy kerberos...................Successfully!";;
     N | n)
@@ -135,5 +148,6 @@ function kerberosDeploy() {
         echo "Input error, please try again."
         exit 2;;
     esac
+
 
 }

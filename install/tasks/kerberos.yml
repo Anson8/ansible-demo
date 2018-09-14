@@ -1,31 +1,42 @@
 - hosts: all
   become: yes
   become_user: root
-  tasks:
-    - name: copy krb5.conf to /etc
-      copy: src= ../../depend/config/kerberos/krb5.conf  dest=/etc/
 
+  vars:
+      sshd_config_path: /tmp/sshd_config
+   #   sshd_config_path: /etc/ssh/sshd_config
+
+  tasks:
+  # 拷贝krb5.conf文件到/etc目录下
+    - name: copy krb5.conf to /etc
+      copy: src=../../depend/config/kerberos/krb5.conf  dest=/etc/
+  # 修改sshd_config使用Kerberos登录
     - name: Open KerberosAuthentication...
       lineinfile:
-          dest: /tmp/sshd_config
+          dest: "{{sshd_config_path}}"
           regexp: "^#KerberosAuthentication"
           line: "KerberosAuthentication yes"
 
     - name: Open KerberosTicketCleanup...
       lineinfile:
-          dest: /tmp/sshd_config
+          dest: "{{sshd_config_path}}"
           regexp: "^#KerberosTicketCleanup"
           line: "KerberosTicketCleanup yes"
 
     - name: Open GSSAPIAuthentication...
       lineinfile:
-          dest: /tmp/sshd_config
+          dest: "{{sshd_config_path}}"
           regexp: "^#GSSAPIAuthentication"
           line: "GSSAPIAuthentication yes"
 
     - name: Open GSSAPICleanupCredentials...
       lineinfile:
-          dest: /tmp/sshd_config
+          dest: "{{sshd_config_path}}"
           regexp: "^#GSSAPICleanupCredentials"
           line: "GSSAPICleanupCredentials yes"
 
+  # 修改主机名与dns保持一致
+      - name: Set hostname
+        hostname: name={{ hostname }}
+
+  # 拷贝keytab到/etc目录下https://git.icarbonx.com/devops/ops-deploy.git

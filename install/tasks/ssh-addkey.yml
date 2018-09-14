@@ -5,6 +5,6 @@
   tasks:
 
   - name: install ssh key
-    authorized_key: user=icx-admin
+    authorized_key: user=ops-admin
                     key="{{ lookup('file', '/home/icx-admin/.ssh/id_rsa.pub') }}"
                     state=present
