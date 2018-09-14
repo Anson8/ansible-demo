@@ -3,19 +3,15 @@ kind: ReplicationController
 metadata:
   labels:
     name: redis-sentinel
-    version: v1
   name: redis-sentinel
   namespace: default
 spec:
   replicas: 3
   selector:
     name: redis-sentinel
-    version: v1
   template:
-    metadata:
       labels:
         name: redis-sentinel
-        version: v1
     spec:
       containers:
       - image: ccr.ccs.tencentyun.com/beta/redis-cluster-sentienl
@@ -25,16 +21,14 @@ spec:
         - containerPort: 26379
           protocol: TCP
         volumeMounts:
-        - name: redis-storage
-          mountPath: /var/lib/redis
+        - mountPath: /var/lib/redis
+          name: redis-storage
       volumes:
-      volumes:
-      - name: redis-storage
-        hostPath:
-          path: /data/redis
+      - hostPath:
+          path: /mdata/redis
+        name: redis-storage
       nodeSelector:
         kubernetes.io/hostname: 10.47.0.251
-
 
 ---
 apiVersion: v1
