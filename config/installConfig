@@ -25,6 +25,8 @@ SSHKADDKEYS_NODES=(192.168.31.145)
 
 ### TODO: 需要部署kerberos的节点
 KERBEROS_NODES=(192.168.31.145)
+### TODO: 需要部署kerberos的节点
+KERBEROS_PRINCIPAL=(zhuangzhaowen huangyunqing)
 
 ### TODO: hostname定义
 HOSTNAME_TYPE=VM

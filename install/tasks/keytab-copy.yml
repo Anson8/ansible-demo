@@ -1,0 +1,8 @@
+- hosts: all
+  become: yes
+  become_user: root
+
+  tasks:
+  # 拷贝krb5.conf文件到/etc目录下
+    - name: copy krb5.keytab to /etc
+      copy: src=/data/ketab/{{ hostname }}/krb5.keytab  dest=/etc/

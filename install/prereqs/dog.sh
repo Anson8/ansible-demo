@@ -3,6 +3,7 @@
 INSTALL_PATH="$(cd "$(dirname "${BASH_SOURCE[0]}")" && echo "$PWD")"
 ANSIBLE_CFG=$BOOT_PATH/../../depend/config/ansible/ansible.cfg
 . $INSTALL_PATH/../common/ip-detect
+. $INSTALL_PATH/../../config/installConfig
 
 ## TODO 安装Ansible
 function ansibleInstall(){
@@ -35,3 +36,14 @@ function addprinc(){
     kadmin.local -q "addprinc -randkey  host/$host_name"
     kadmin.local -q "ktadd -k /data/keytab/$host_name/krb5.keytab host/$host_name"
 }
+
+function getprincipals(){
+    princials=""
+    for p in ${KERBEROS_PRINCIPAL[@]}
+    do
+        princials+=${p}"\n"
+    done
+    echo $princials;
+}
+
+

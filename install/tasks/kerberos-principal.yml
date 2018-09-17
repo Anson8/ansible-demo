@@ -1,0 +1,10 @@
+- hosts: all
+  become: yes
+  become_user: root
+
+  tasks:
+  # 在 $HOME/.k5login 中加入允许登录到该 linux 帐户的 Kerberos principal
+    - name: add princals to mechine...
+      lineinfile:
+          dest: "/home/ops-admin/.k5login"
+          line: {{ principals }}

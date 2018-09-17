@@ -27,6 +27,8 @@ spec:
       - hostPath:
           path: /mdata/redis
         name: redis-storage
+      command:
+      - /etc/redis/run.sh
       nodeSelector:
         kubernetes.io/hostname: 10.47.0.251
 

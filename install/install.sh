@@ -127,12 +127,17 @@ function kerberosDeploy() {
                 ret=`sethostname $ip`
                 host_name=${ret}
                 echo "ansible-playbook for this [$ip] and hostname is set to [$host_name]."
-                #ansible-playbook $TASKS_PATH/kerberos.yml -i $ip, -e "hostname=$host_name ansible_user=$USER ansible_port=22 ansible_ssh_pass=$PASSWD ansible_become_pass=$PASSWD condition=false"
-                echo "add principal and add keytab for this [$ip]."
+                ansible-playbook $TASKS_PATH/kerberos.yml -i $ip, -e "hostname=$host_name ansible_user=$USER ansible_port=22 ansible_ssh_pass=$PASSWD ansible_become_pass=$PASSWD condition=false"
+                echo "add krb5.keytab and principal for this [$ip]."
                 addprinc $ip
-                echo "copy the krb5.keytab to this [$ip]."
-
-                echo "add kerberos principal to this [$ip]."
+                echo "copy the krb5.keytab and principal to this [$ip]."
+                ansible-playbook $TASKS_PATH/keytab-copy.yml -i $ip, -e "hostname=$host_name ansible_user=$USER ansible_port=22 ansible_ssh_pass=$PASSWD ansible_become_pass=$PASSWD condition=false"
+                #在 $HOME/.k5login 中加入允许登录到该 linux 帐户的 Kerberos principal
+                principal_all=${KERBEROS_PRINCIPAL[@]}
+                echo "add the principals [principals] to this [$principal_all]."
+                ret=`sethostname`
+                principals=${ret}
+                ansible-playbook $TASKS_PATH/kerberos-principal.yml -i $ip, -e "principals=$principals ansible_user=$USER ansible_port=22 ansible_ssh_pass=$PASSWD ansible_become_pass=$PASSWD condition=false"
 
             else
                 # ip valid
@@ -140,6 +145,8 @@ function kerberosDeploy() {
                 return 4
             fi
         done
+
+
         echo "Start to deploy kerberos...................Successfully!";;
     N | n)
         echo "Exit."

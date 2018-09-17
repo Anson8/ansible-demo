@@ -38,5 +38,11 @@
   # 修改主机名与dns保持一致
       - name: Set hostname
         hostname: name={{ hostname }}
+  # 创建.k5login
+      - name: touch .k5login
+          dest: /home/ops-admin/.k5login
+          state: touch
+          owner: ops-admin
+          group: ops-admin
+          mode: 666
 
-  # 拷贝keytab到/etc目录下https://git.icarbonx.com/devops/ops-deploy.git
