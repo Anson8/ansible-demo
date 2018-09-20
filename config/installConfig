@@ -24,7 +24,7 @@ TEST_NODES=(192.168.31.145)
 SSHKADDKEYS_NODES=(192.168.31.145)
 
 ### TODO: 需要部署kerberos的节点
-KERBEROS_NODES=(192.168.31.145)
+KERBEROS_NODES=(192.168.99.102)
 ### TODO: 需要部署kerberos的节点
 KERBEROS_PRINCIPAL=(zhuangzhaowen huangyunqing)
 

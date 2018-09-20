@@ -137,6 +137,7 @@ function kerberosDeploy() {
                 echo "add the principals [principals] to this [$principal_all]."
                 ret=`sethostname`
                 principals=${ret}
+                echo "ansible-playbook for this [$ip] and set principals  set to .k5login."
                 ansible-playbook $TASKS_PATH/kerberos-principal.yml -i $ip, -e "principals=$principals ansible_user=$USER ansible_port=22 ansible_ssh_pass=$PASSWD ansible_become_pass=$PASSWD condition=false"
 
             else
