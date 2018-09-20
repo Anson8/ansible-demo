@@ -57,7 +57,7 @@ function sshAddkey() {
         for ip in $nodes;
         do
             echo "ansible-playbook deploy sshAddkey for this $ip"
-            ansible-playbook $TASKS_PATH/ssh-addkey.yml -i $ip, -e "security_sudoer=$seSudoer ansible_user=$USER ansible_port=22 ansible_ssh_pass=$PASSWD ansible_become_pass=$PASSWD condition=false"
+            ansible-playbook $TASKS_PATH/bootstrap.yml -i $ip, -e "security_sudoer=$seSudoer ansible_user=$USER ansible_port=22 ansible_ssh_pass=$PASSWD ansible_become_pass=$PASSWD condition=false"
             if [ $? -ne 0 ];then
                  echo "Start to deploy sshAddkey...................Failed! Ret=$ret"
                 return 1

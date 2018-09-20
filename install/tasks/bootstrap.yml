@@ -24,12 +24,12 @@
         validate: "visudo -cf %s"
       with_items: ["{{ security_sudoer }}"]
 ## 配置主机的DNS
-    - name: config dns server
-      copy:
-          content: |
-              nameserver 8.8.8.8
-              nameserver 202.101.172.35
-          dest: /etc/resolv.conf
+#    - name: config dns server
+#      copy:
+#          content: |
+#              nameserver 8.8.8.8
+#              nameserver 202.101.172.35
+#          dest: /etc/resolv.conf
 ## 关闭防火墙
 #    - name: systemctl stop firewalld && systemctl disable firewalld
 #      service:

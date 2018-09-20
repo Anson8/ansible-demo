@@ -63,7 +63,7 @@ if [ $# -ge 1 ]; then
         echo "Start to deploy sshAddkey...................Successfully!"
         exit 0;;
     "hostname")
-        hostnameDeploy
+        installBootStrap
         ret=$?
         if [ $ret -ne 0 ];then
             echo "Start to deploy hostname...................Failed! Ret=$ret"
