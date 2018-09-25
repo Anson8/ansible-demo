@@ -135,7 +135,7 @@ function kerberosDeploy() {
                 #在 $HOME/.k5login 中加入允许登录到该 linux 帐户的 Kerberos principal
                 principal_all=${KERBEROS_PRINCIPAL[@]}
                 echo "add the principals [$principal_all] to this [$ip]."
-                ret=`sethostname`
+                ret=`getprincipals`
                 princi=${ret}
                 echo "ansible-playbook for this [$ip] and set principals [$princi] to .k5login."
                 ansible-playbook $TASKS_PATH/kerberos-principal.yml -i $ip, -e "principals=$princi ansible_user=$USER ansible_port=22 ansible_ssh_pass=$PASSWD ansible_become_pass=$PASSWD condition=false"

@@ -42,7 +42,7 @@ function getprincipals(){
     princials=""
     for p in ${KERBEROS_PRINCIPAL[@]}
     do
-        princials+=${p}"\n"
+        princials+=${p}.@ICARBONX.NET"\n"
     done
     echo $princials;
 }

@@ -7,4 +7,4 @@
     - name: add princals to mechine...
       lineinfile:
         dest: /home/ubuntu/.k5login
-        line: "#list_principals\n"{{principals}}
+        line: "#list_principals\n{{principals}}"
