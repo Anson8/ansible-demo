@@ -43,6 +43,4 @@
       hostname: name={{ hostname }}
   # 创建.k5login
     - name: touch .k5login
-      file:
-        path: /home/ubuntu/.k5login owner=ubuntu group=ubuntu mode=0664
-        state: touch
+      file: path=/home/ubuntu/.k5login owner=ubuntu group=ubuntu mode=0664 state=touch
