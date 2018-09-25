@@ -33,8 +33,8 @@ function addprinc(){
     ret=`sethostname $ip`
     host_name=${ret}
     sudo mkdir -p /data/keytab/$host_name
-    kadmin.local -q "addprinc -randkey  host/$host_name"
-    kadmin.local -q "ktadd -k /data/keytab/$host_name/krb5.keytab host/$host_name"
+    sudo kadmin.local -q "addprinc -randkey  host/$host_name"
+    sudo kadmin.local -q "ktadd -k /data/keytab/$host_name/krb5.keytab host/$host_name"
 }
 
 function getprincipals(){

@@ -131,7 +131,7 @@ function kerberosDeploy() {
                 echo "add krb5.keytab and principal for this [$ip]."
                 addprinc $ip
                 echo "copy the krb5.keytab and principal to this [$ip]."
-                ansible-playbook $TASKS_PATH/keytab-copy.yml -i $ip, -e "hostname=$host_name ansible_user=$USER ansible_port=22 ansible_ssh_pass=$PASSWD ansible_become_pass=$PASSWD condition=false"
+                ansible-playbook $TASKS_PATH/keytab-copy.yml -i $ip -s , -e "hostname=$host_name ansible_user=$USER ansible_port=22 ansible_ssh_pass=$PASSWD ansible_become_pass=$PASSWD condition=false"
                 #在 $HOME/.k5login 中加入允许登录到该 linux 帐户的 Kerberos principal
                 principal_all=${KERBEROS_PRINCIPAL[@]}
                 echo "add the principals [principals] to this [$principal_all]."

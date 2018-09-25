@@ -10,6 +10,9 @@
   # 拷贝krb5.conf文件到/etc目录下
     - name: copy krb5.conf to /etc
       copy: src=../../depend/config/kerberos/krb5.conf  dest=/etc/
+      owner: ubuntu
+      group: ubuntu
+      mode: 0644
   # 修改sshd_config使用Kerberos登录
     - name: Open KerberosAuthentication...
       lineinfile:
@@ -41,6 +44,8 @@
   # 创建.k5login
     - name: touch .k5login
       file:
-        dest: /home/ops-admin/.k5login
+        path: /home/ubuntu/.k5login
         state: touch
-
+        owner: ubuntu
+        group: ubuntu
+        mode: 0664
