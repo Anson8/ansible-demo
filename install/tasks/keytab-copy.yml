@@ -5,7 +5,4 @@
   tasks:
   # 拷贝krb5.keytab文件到/etc目录下
     - name: copy krb5.keytab to /etc
-      copy: src=/data/keytab/{{ hostname }}/krb5.keytab  dest=/etc/
-      owner: ubuntu
-      group: ubuntu
-      mode: 0644
+      copy: src=/data/keytab/{{ hostname }}/krb5.keytab  dest=/etc/  owner=ubuntu group=ubuntu mode=0644
