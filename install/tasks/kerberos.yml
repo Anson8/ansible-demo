@@ -38,6 +38,15 @@
         regexp: "^#GSSAPICleanupCredentials"
         line: "GSSAPICleanupCredentials yes"
 
+    - name: Close PasswordAuthentication...
+      lineinfile:
+        dest: "{{sshd_config_path}}"
+        regexp: "^PasswordAuthentication"
+        line: "PasswordAuthentication no"
+    - name: restart sshd...
+      service: name=sshd state=restarted
+
+
   # 修改主机名与dns保持一致
     - name: Set hostname
       hostname: name={{ hostname }}

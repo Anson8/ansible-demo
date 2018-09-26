@@ -29,7 +29,7 @@ KERBEROS_NODES=(10.100.0.2)
 KERBEROS_PRINCIPAL=(zhuangzhaowen huangyunqing)
 
 ### TODO: hostname定义
-HOSTNAME_TYPE=VM
+HOSTNAME_TYPE=vm
 HOSTNAME_EVN=dev
 HOSTNAME_CNAME=icarbonx.net
 
