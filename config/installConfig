@@ -24,7 +24,7 @@ TEST_NODES=(192.168.31.145)
 SSHKADDKEYS_NODES=(192.168.31.145)
 
 ### TODO: 需要部署kerberos的sshd节点
-KERBEROS_NODES=(10.100.0.710.100.0.9 10.100.0.12)
+KERBEROS_NODES=(10.100.0.7 10.100.0.9 10.100.0.12)
 ### TODO: 添加票据到sshd节点
 KERBEROS_PRINCIPAL=(zhuangzhaowen huangyunqing)
 ### TODO: hostname定义
