@@ -35,7 +35,7 @@ function addprinc(){
     sudo mkdir -p /data/keytab/$host_name
     sudo kadmin.local -q "addprinc -randkey  host/$host_name"
     sudo kadmin.local -q "ktadd -k /data/keytab/$host_name/krb5.keytab host/$host_name"
-    sudo chown ubuntu:ubuntu /data/keytab/$host_name/krb5.keytab
+    sudo chown $SYSTEM_USER:$SYSTEM_USER /data/keytab/$host_name/krb5.keytab
 }
 
 function getprincipals(){

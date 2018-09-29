@@ -9,7 +9,7 @@
   tasks:
   # 拷贝krb5.conf文件到/etc目录下
     - name: copy krb5.conf to /etc
-      copy: src=../../depend/config/kerberos/krb5.conf  dest=/etc/ owner=ubuntu group=ubuntu mode=0644
+      copy: src=../../depend/config/kerberos/krb5.conf  dest=/etc/ mode=0644
 
 
 
@@ -49,7 +49,8 @@
 
   # 修改主机名与dns保持一致
     - name: Set hostname
-      hostname: name={{ hostname }}
+      hostname: {{ hostname }}
+      when: {{ SYSTEM_TYPE }}==no
   # 创建.k5login
     - name: touch .k5login
-      file: path=/home/ubuntu/.k5login owner=ubuntu group=ubuntu mode=0664 state=touch
+      file: path=/home/{{ SYSTEM_USER }}/.k5login mode=0644 state=touch
