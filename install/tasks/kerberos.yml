@@ -5,6 +5,7 @@
   vars:
   #    sshd_config_path: /tmp/sshd_config
       sshd_config_path: /etc/ssh/sshd_config
+      system_tyey: $SYSTEM_TYPE
 
   tasks:
   # 拷贝krb5.conf文件到/etc目录下
@@ -50,7 +51,7 @@
   # 修改主机名与dns保持一致
     - name: Set hostname
       hostname: {{ hostname }}
-      when: {{ SYSTEM_TYPE }}==no
+      when: "{{system_tyey}}==no"
   # 创建.k5login
     - name: touch .k5login
       file: path=/home/{{ SYSTEM_USER }}/.k5login mode=0644 state=touch
