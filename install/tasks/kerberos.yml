@@ -50,7 +50,7 @@
 
   # 修改主机名与dns保持一致
     - name: Set hostname
-      hostname: {{ hostname }}
+      hostname: "{{hostname}}"
       when: "{{system_tyey}}==no"
   # 创建.k5login
     - name: touch .k5login
