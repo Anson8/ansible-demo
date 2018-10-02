@@ -24,7 +24,7 @@ TEST_NODES=(192.168.31.145)
 SSHKADDKEYS_NODES=(192.168.31.145)
 
 ### TODO: 需要部署kerberos的sshd节点
-KERBEROS_NODES=(192.168.99.102)
+KERBEROS_NODES=(10.100.240.2)
 ### TODO: 添加票据到sshd节点
 KERBEROS_PRINCIPAL=(zhuangzhaowen huangyunqing)
 ### TODO: hostname定义
@@ -35,6 +35,8 @@ HOSTNAME_CNAME=icarbonx.net
 SYSTEM_USER=icarbonx
 ### TODO: 判断是否是cdh用户（no 不是，yes 是）
 SYSTEM_TYPE=yes
+### TODO: ops-principals路劲
+OPS_PRINCIPAL=/home/ubuntu/ops-principal
 
 ### TODO: 需要修改hostname的节点
 HOSTNAME_NODES=(192.168.31.145)

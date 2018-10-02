@@ -5,7 +5,6 @@
   vars:
   #    sshd_config_path: /tmp/sshd_config
       sshd_config_path: /etc/ssh/sshd_config
-      system_user: $SYSTEM_USER
 
   tasks:
   # 拷贝krb5.conf文件到/etc目录下

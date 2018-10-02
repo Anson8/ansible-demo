@@ -117,7 +117,7 @@ function kerberosDeploy() {
     local host_name
     nodes=${KERBEROS_NODES[@]};
     system_user=$SYSTEM_USER
-    read -p "Do you want to deploy kerberos for [$nodes] ?[Y/N]:" answer
+    read -p "Do you want to deploy kerberos for [$nodes] ?[Y/N/J]:" answer
     answer=$(echo $answer)
     case $answer in
     Y | y)
@@ -153,10 +153,44 @@ function kerberosDeploy() {
     N | n)
         echo "Exit."
         exit 0;;
+    J | j)
+        echo "Skip the installation of the spot.";;
     *)
         echo "Input error, please try again."
-        exit 2;;
+        exit 5;;
     esac
 
+   ##批量添加票据到服务器
+   read -p "Do you want to add principals to mechine?[Y/N/J]:" answer
+    answer=$(echo $answer)
+    case $answer in
+    Y | y)
+        echo "Start to addd principals to mechine."
+        cd $OPS_PRINCIPAL
+        for file in $(ls *)
+        do
+            while read fileLine
+            do
+               ip=$(echo $fileLine | awk '{print $1 }')   #取每行的第一列值
+               system_name=$(echo $fileLine | awk '{print $2 }')   #取每行的第一列值
+
+               echo "ansible-playbook add principals to this $ip----$system_name"
+               ansible-playbook $TASKS_PATH/kerberos-principal.yml -i $ip, -e "systemName=$system_name ansible_user=$USER ansible_port=22 ansible_ssh_pass=$PASSWD ansible_become_pass=$PASSWD condition=false"
+               if [ $? -ne 0 ];then
+                   echo "Start to add principals..................Failed! Ret=$ret"
+                   return 1
+               fi
+            done < $file
+        done
+        echo "Start to add principals...................Successfully!";;
+    N | n)
+        echo "Exit."
+        exit 0;;
+    J | j)
+        echo "Skip the installation of the spot.";;
+    *)
+        echo "Input error, please try again."
+        exit 5;;
+    esac
 
 }
