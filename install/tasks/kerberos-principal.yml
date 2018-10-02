@@ -6,5 +6,5 @@
   # 在 $HOME/.k5login 中加入允许登录到该 linux 帐户的 Kerberos principal
     - name: add princals to mechine...
       lineinfile:
-        dest: /home/{{principals}}/.k5login
+        dest: /home/{{systemName}}/.k5login
         line: "#list_principals\n{{principals}}"
