@@ -169,7 +169,7 @@ function kerberosDeploy() {
         cd $OPS_PRINCIPAL
         for file in $(ls *)
         do
-            principals=$file
+            princi=$file
             while read fileLine
             do
                ip=$(echo $fileLine | awk '{print $1 }')   #取每行的第一列值（IP）
