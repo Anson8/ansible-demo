@@ -38,6 +38,11 @@ function addprinc(){
     sudo chown ubuntu:ubuntu /data/keytab/$host_name/krb5.keytab
 }
 
+## TODO 给用户添加principal
+function addprincipals(){
+    sudo kadmin.local -q "addprinc -pw icx@$1 $1"
+}
+
 function getprincipals(){
     princials=""
     for p in ${KERBEROS_PRINCIPAL[@]}
@@ -46,5 +51,7 @@ function getprincipals(){
     done
     echo $princials;
 }
+
+
 
 

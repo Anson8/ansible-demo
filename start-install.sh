@@ -5,6 +5,7 @@ echo $OPS_ROOT
 ## TODO 引入installConfig配置文件
 . $OPS_ROOT/config/installConfig
 . $OPS_ROOT/install/install.sh
+. $OPS_ROOT/install/kerberos.sh
 
 ## TODO 服务器各种组件安装
 options=("ansible" "test" "sshaddkey" "hostname" "kerberos" )
