@@ -68,9 +68,9 @@ function kerberosDeploy() {
             princi=$file@ICARBONX.NET
             while read fileLine
             do
-               ip=$(echo $fileLine | awk '{print $2 }')   #取每行的第一列值（IP）
+               ip=$(echo $fileLine | awk '{print $2 }')   #取每行的第二列值（IP）
                if ip_valid $ip;then
-                   system_name=$(echo $fileLine | awk '{print $3 }')   #取每行的第二列值(系统名)
+                   system_name=$(echo $fileLine | awk '{print $3 }')   #取每行的第三列值(系统名)
                    echo "ansible-playbook add principals to this $ip----$system_name"
                    ansible-playbook $TASKS_PATH/kerberos-principal.yml -i $ip, -e "principals=$princi systemName=$system_name ansible_user=$USER ansible_port=22 ansible_ssh_pass=$PASSWD ansible_become_pass=$PASSWD condition=false"
                    if [ $? -ne 0 ];then

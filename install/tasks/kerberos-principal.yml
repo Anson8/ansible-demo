@@ -7,4 +7,5 @@
     - name: add princals to mechine...
       lineinfile:
         dest: /home/{{systemName}}/.k5login
-        line: "#list_principals\n{{principals}}"
+        regexp: "^{{principals}}"
+        line: "{{principals}}\n"
