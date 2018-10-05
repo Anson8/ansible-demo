@@ -8,4 +8,4 @@
       lineinfile:
         dest: /home/{{systemName}}/.k5login
         regexp: "^{{principals}}"
-        line: "{{principals}}\n"
+        line: "{{principals}}"
