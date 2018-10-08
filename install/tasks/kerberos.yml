@@ -50,7 +50,7 @@
 
   # 修改主机名与dns保持一致,cdh的服务器请注释
     - name: Set hostname
-      hostname: "{{hostname}}"
+      hostname: name={{ hostname }}
 #      when: "{{system_type}}==no"
   # 创建.k5login
     - name: touch .k5login
