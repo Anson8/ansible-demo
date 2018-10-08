@@ -13,7 +13,6 @@ function kerberosDeploy() {
     #  deploy kerberos
     local host_name
     nodes=${KERBEROS_NODES[@]};
-    system_user=$SYSTEM_USER
     read -p "Do you want to deploy kerberos for [$nodes] ?[Y/N/J]:" answer
     answer=$(echo $answer)
     case $answer in
@@ -25,7 +24,7 @@ function kerberosDeploy() {
                 ret=`sethostname $ip`
                 host_name=${ret}
                 echo "ansible-playbook for this [$ip] and hostname is set to [$host_name]."
-                ansible-playbook $TASKS_PATH/kerberos.yml -i $ip, -e "hostname=$host_name sysuser=$system_user ansible_user=$USER ansible_port=22 ansible_ssh_pass=$PASSWD ansible_become_pass=$PASSWD condition=false"
+                ansible-playbook $TASKS_PATH/kerberos.yml -i $ip, -e "hostname=$host_name sys_user=$SYSTEM_USER ansible_user=$USER ansible_port=22 ansible_ssh_pass=$PASSWD ansible_become_pass=$PASSWD condition=false"
                 echo "add krb5.keytab and principal for this [$ip]."
                 addprinc $ip
                 echo "copy the krb5.keytab and principal to this [$ip]."
