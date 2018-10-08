@@ -56,35 +56,17 @@ function kerberosDeploy() {
         exit 5;;
     esac
 
-   ## TODO 批量添加票据到服务器
-   read -p "Do you want to add host principals to mechine?[Y/N/J]:" answer
+## TODO 批量创建用户实体
+    read -p "Do you want to create user principals?[Y/N/J]:" answer
     answer=$(echo $answer)
     case $answer in
     Y | y)
-        echo "Start to add host principals to mechine."
-        cd $OPS_PRINCIPAL
-        for file in $(ls *)
+        echo "Start to create user ${KERBEROS_PRINCIPAL[@]}."
+        for p in ${KERBEROS_PRINCIPAL[@]}
         do
-            princi=$file@ICARBONX.NET
-            while read fileLine
-            do
-               ip=$(echo $fileLine | awk '{print $2 }')   #取每行的第二列值（IP）
-               if ip_valid $ip;then
-                   system_name=$(echo $fileLine | awk '{print $3 }')   #取每行的第三列值(系统名)
-                   echo "ansible-playbook add principals to this $ip----$system_name"
-                   ansible-playbook $TASKS_PATH/kerberos-principal.yml -i $ip, -e "principals=$princi systemName=$system_name ansible_user=$USER ansible_port=22 ansible_ssh_pass=$PASSWD ansible_become_pass=$PASSWD condition=false"
-                   if [ $? -ne 0 ];then
-                       echo "Start to add principals..................Failed! Ret=$ret"
-                       return 1
-                   fi
-               else
-                   # ip valid
-                   echo "ERROR: invalid mechine public ip = $ip."
-                   return 4
-               fi
-            done < $file
-        done
-        echo "Start to add principals...................Successfully!";;
+            createprincipals $p
+        done;
+        echo "Start to create principals...................Successfully!";;
     N | n)
         echo "Exit."
         exit 0;;
@@ -95,16 +77,34 @@ function kerberosDeploy() {
         exit 5;;
     esac
 
-    ## TODO 批量生成用户实体
-    read -p "Do you want to add user principals?[Y/N/J]:" answer
+## TODO 批量添加用户票据信息到服务器的 .k5login
+    read -p "Do you want to add user principals to .k5login?[Y/N/J]:" answer
     answer=$(echo $answer)
     case $answer in
     Y | y)
-        echo "Start to add user ${KERBEROS_PRINCIPAL[@]}."
-        for p in ${KERBEROS_PRINCIPAL[@]}
+        echo "Start to add user principals to .k5login."
+        cd $OPS_PRINCIPAL
+        for file in $(ls *)
         do
-            addprincipals $p
-        done;
+            princi=$file@ICARBONX.NET
+            while read fileLine
+            do
+               ip=$(echo $fileLine | awk '{print $2 }')   #取每行的第二列值（IP）
+               if ip_valid $ip;then
+                   system_name=$(echo $fileLine | awk '{print $3 }')   #取每行的第三列值(系统名)
+                   echo "ansible-playbook add principals to this $ip .k5login----$system_name"
+                   ansible-playbook $TASKS_PATH/kerberos-principal.yml -i $ip, -e "principals=$princi systemName=$system_name ansible_user=$USER ansible_port=22 ansible_ssh_pass=$PASSWD ansible_become_pass=$PASSWD condition=false"
+                   if [ $? -ne 0 ];then
+                       echo "Start to add principals .k5login..................Failed! Ret=$ret"
+                       return 1
+                   fi
+               else
+                   # ip valid
+                   echo "ERROR: invalid mechine public ip = $ip."
+                   return 4
+               fi
+            done < $file
+        done
         echo "Start to add principals...................Successfully!";;
     N | n)
         echo "Exit."
