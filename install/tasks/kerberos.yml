@@ -53,4 +53,4 @@
 #      when: "{{system_type}}==no"
   # 创建.k5login
     - name: touch .k5login
-      file: "path=/home/{{sys_user}}/.k5login mode=0644 state=touch"
+      file: "path=/home/{{systemUser}}/.k5login mode=0644 state=touch"

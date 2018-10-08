@@ -24,7 +24,7 @@ function kerberosDeploy() {
                 ret=`sethostname $ip`
                 host_name=${ret}
                 echo "ansible-playbook for this [$ip] and hostname is set to [$host_name]."
-                ansible-playbook $TASKS_PATH/kerberos.yml -i $ip, -e "hostname=$host_name sys_user=$SYSTEM_USER ansible_user=$USER ansible_port=22 ansible_ssh_pass=$PASSWD ansible_become_pass=$PASSWD condition=false"
+                ansible-playbook $TASKS_PATH/kerberos.yml -i $ip, -e "hostname=$host_name systemUser=$SYSTEM_USER ansible_user=$USER ansible_port=22 ansible_ssh_pass=$PASSWD ansible_become_pass=$PASSWD condition=false"
                 echo "add krb5.keytab and principal for this [$ip]."
                 addprinc $ip
                 echo "copy the krb5.keytab and principal to this [$ip]."
@@ -35,7 +35,7 @@ function kerberosDeploy() {
                 ret=`getprincipals`
                 princi=${ret}
                 echo "ansible-playbook for this [$ip] and set principals [$princi] to .k5login."
-                ansible-playbook $TASKS_PATH/kerberos-principal.yml -i $ip, -e "principals=$princi ansible_user=$USER ansible_port=22 ansible_ssh_pass=$PASSWD ansible_become_pass=$PASSWD condition=false"
+                ansible-playbook $TASKS_PATH/kerberos-principal.yml -i $ip, -e "principals=$princi systemUser=$SYSTEM_USER ansible_user=$USER ansible_port=22 ansible_ssh_pass=$PASSWD ansible_become_pass=$PASSWD condition=false"
 
             else
                 # ip valid
@@ -90,9 +90,9 @@ function kerberosDeploy() {
             do
                ip=$(echo $fileLine | awk '{print $2 }')   #取每行的第二列值（IP）
                if ip_valid $ip;then
-                   system_name=$(echo $fileLine | awk '{print $3 }')   #取每行的第三列值(系统名)
+                   system_user=$(echo $fileLine | awk '{print $3 }')   #取每行的第三列值(系统名)
                    echo "ansible-playbook add principals to this $ip .k5login----$system_name"
-                   ansible-playbook $TASKS_PATH/kerberos-principal.yml -i $ip, -e "principals=$princi systemName=$system_name ansible_user=$USER ansible_port=22 ansible_ssh_pass=$PASSWD ansible_become_pass=$PASSWD condition=false"
+                   ansible-playbook $TASKS_PATH/kerberos-principal.yml -i $ip, -e "principals=$princi systemUser=$system_user ansible_user=$USER ansible_port=22 ansible_ssh_pass=$PASSWD ansible_become_pass=$PASSWD condition=false"
                    if [ $? -ne 0 ];then
                        echo "Start to add principals .k5login..................Failed! Ret=$ret"
                        return 1
