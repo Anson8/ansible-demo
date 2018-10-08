@@ -45,6 +45,7 @@
         line: "PasswordAuthentication no"
     - name: restart sshd...
       service: name=sshd state=restarted
+      ignore_errors: yes
 
 
   # 修改主机名与dns保持一致,cdh的服务器请注释
