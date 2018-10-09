@@ -85,6 +85,7 @@ function kerberosDeploy() {
         cd "$OPS_PRINCIPAL/file"
         for file in $(ls *)
         do
+            echo "Start to add [ $file ] principals to .k5login."
             princi=$file@ICARBONX.NET
             while read fileLine || [[ -n ${fileLine} ]];
             do
@@ -145,6 +146,7 @@ function kerberosDeploy() {
         cd "$OPS_PRINCIPAL/remove"
         for file in $(ls *)
         do
+            echo "Start to delete [ $file ] principals to .k5login."
             princi=$file@ICARBONX.NET
             while read fileLine || [[ -n ${fileLine} ]];
             do
