@@ -9,4 +9,3 @@
         dest: /{{systemUser}}/.k5login
 #        regexp: "^{{principals}}"
         line: "{{principals}}"
-        when: {{systemUser}}!=root
