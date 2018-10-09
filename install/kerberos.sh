@@ -35,7 +35,11 @@ function kerberosDeploy() {
                 ret=`getprincipals`
                 princi=${ret}
                 echo "ansible-playbook for this [$ip] and set principals [$princi] to .k5login."
-                ansible-playbook $TASKS_PATH/kerberos-principal.yml -i $ip, -e "principals=$princi systemUser=$SYSTEM_USER ansible_user=$USER ansible_port=22 ansible_ssh_pass=$PASSWD ansible_become_pass=$PASSWD condition=false"
+                system_user=$SYSTEM_USER
+                if [ "root" != $system_user ];then
+                    system_user="home/$system_user"
+                fi
+                ansible-playbook $TASKS_PATH/kerberos-principal.yml -i $ip, -e "principals=$princi systemUser=$system_user ansible_user=$USER ansible_port=22 ansible_ssh_pass=$PASSWD ansible_become_pass=$PASSWD condition=false"
 
             else
                 # ip valid
@@ -92,6 +96,9 @@ function kerberosDeploy() {
                ip=$(echo $fileLine | awk '{print $2 }')   #取每行的第二列值（IP）
                if ip_valid $ip;then
                    system_user=$(echo $fileLine | awk '{print $3 }')   #取每行的第三列值(系统名)
+                   if [ "root" != $system_user ];then
+                    system_user="home/$system_user"
+                   fi
                    echo "ansible-playbook add principals to this $ip .k5login----$system_name"
                    ansible-playbook $TASKS_PATH/kerberos-principal.yml -i $ip, -e "principals=$princi systemUser=$system_user ansible_user=$USER ansible_port=22 ansible_ssh_pass=$PASSWD ansible_become_pass=$PASSWD condition=false"
                    if [ $? -ne 0 ];then
