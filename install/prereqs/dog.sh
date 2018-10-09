@@ -40,7 +40,11 @@ function addprinc(){
 
 ## TODO 创建用户principal
 function createprincipals(){
-    sudo kadmin.local -q "addprinc -pw icx@$1 $1"
+    sudo kadmin.local -q "addprinc -pw $1@icx $1"
+}
+## TODO 删除用户principal
+function deleteprincipals(){
+    sudo kadmin.local -q "delprinc $1"
 }
 ## TODO：获取用户实体
 function getprincipals(){
