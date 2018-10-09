@@ -86,7 +86,7 @@ function kerberosDeploy() {
         for file in $(ls *)
         do
             princi=$file@ICARBONX.NET
-            while read fileLine
+            while read fileLine || [[ -n ${fileLine} ]];
             do
                ip=$(echo $fileLine | awk '{print $2 }')   #取每行的第二列值（IP）
                if ip_valid $ip;then
@@ -142,11 +142,11 @@ function kerberosDeploy() {
     case $answer in
     Y | y)
         echo "Start to delete user principals from .k5login."
-        cd "$OPS_PRINCIPAL/delete"
+        cd "$OPS_PRINCIPAL/remove"
         for file in $(ls *)
         do
             princi=$file@ICARBONX.NET
-            while read fileLine
+            while read fileLine || [[ -n ${fileLine} ]];
             do
                ip=$(echo $fileLine | awk '{print $2 }')   #取每行的第二列值（IP）
                if ip_valid $ip;then

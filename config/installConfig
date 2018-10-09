@@ -36,7 +36,7 @@ SYSTEM_USER=ubuntu
 ### TODO: 判断是否是cdh用户（no 不是，yes 是）
 SYSTEM_TYPE=yes
 ### TODO: ops-principals路劲
-OPS_PRINCIPAL=/home/ubuntu/ops-principal
+OPS_PRINCIPAL=/Users/hyq/Desktop/icarbonx/code/icarbonx/ops-principal
 ##------kerberos end-------
 ### TODO: 需要修改hostname的节点
 HOSTNAME_NODES=(192.168.31.145)
