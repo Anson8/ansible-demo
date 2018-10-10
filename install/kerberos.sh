@@ -99,7 +99,7 @@ function kerberosDeploy() {
                    if [ "root" != $system_user ];then
                     system_user="home/$system_user"
                    fi
-                   echo "ansible-playbook add principals to this $ip .k5login----$system_name"
+                   echo "ansible-playbook add principals to this $ip .k5login----$system_user"
                    ansible-playbook $TASKS_PATH/kerberos-principal.yml -i $ip, -e "principals=$princi systemUser=$system_user ansible_user=$USER ansible_port=22 ansible_ssh_pass=$PASSWD ansible_become_pass=$PASSWD condition=false"
                    if [ $? -ne 0 ];then
                        echo "Start to add principals .k5login..................Failed! Ret=$ret"
@@ -160,7 +160,7 @@ function kerberosDeploy() {
                ip=$(echo $fileLine | awk '{print $2 }')   #取每行的第二列值（IP）
                if ip_valid $ip;then
                    system_user=$(echo $fileLine | awk '{print $3 }')   #取每行的第三列值(系统名)
-                   echo "ansible-playbook delete user principals from this $ip .k5login----$system_name"
+                   echo "ansible-playbook delete user principals from this $ip .k5login----$system_user"
                    ansible-playbook $TASKS_PATH/delete-principal.yml -i $ip, -e "principals=$princi systemUser=$system_user ansible_user=$USER ansible_port=22 ansible_ssh_pass=$PASSWD ansible_become_pass=$PASSWD condition=false"
                    if [ $? -ne 0 ];then
                        echo "Start to delete user principals from .k5login..................Failed! Ret=$ret"
