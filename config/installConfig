@@ -25,7 +25,7 @@ SSHKADDKEYS_NODES=(192.168.31.145)
 ##-- kerberos start-----------------
 ### TODO: 需要部署kerberos的sshd节点
 KERBEROS_NODES=(119.29.176.181)
-### TODO: 添加票据到sshd节点,每个服务器默认(zhuangzhaowen huangyunqing)
+### TODO: 添加票据到sshd节点,每个服务器默认(zhuangzhaowen zhangya huangyunqing)
 KERBEROS_PRINCIPAL=(sunxiaolong liubulou liuchuankai)
 ### TODO: hostname定义
 HOSTNAME_TYPE=vm
