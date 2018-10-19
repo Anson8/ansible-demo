@@ -24,12 +24,12 @@ TEST_NODES=(192.168.31.145)
 SSHKADDKEYS_NODES=(192.168.31.145)
 ##-- kerberos start-----------------
 ### TODO: 需要部署kerberos的sshd节点
-KERBEROS_NODES=(119.29.176.181)
+KERBEROS_NODES=(118.89.54.64 10.47.0.26 10.47.0.45 10.47.0.251)
 ### TODO: 添加票据到sshd节点,每个服务器默认(zhuangzhaowen zhangya huangyunqing)
-KERBEROS_PRINCIPAL=(sunxiaolong liubulou liuchuankai)
+KERBEROS_PRINCIPAL=(zhuangzhaowen zhangya huangyunqing)
 ### TODO: hostname定义
 HOSTNAME_TYPE=vm
-HOSTNAME_EVN=dev
+HOSTNAME_EVN=beta
 HOSTNAME_CNAME=icarbonx.net
 ### TODO: HOST用户配置
 SYSTEM_USER=ubuntu
