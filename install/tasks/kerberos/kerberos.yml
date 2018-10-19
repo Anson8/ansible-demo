@@ -9,7 +9,7 @@
   tasks:
   # 拷贝krb5.conf文件到/etc目录下
     - name: copy krb5.conf to /etc
-      copy: src=../../depend/config/kerberos/krb5.conf  dest=/etc/ mode=0644
+      copy: src=../../../depend/config/kerberos/krb5.conf  dest=/etc/ mode=0644
 
 
 
