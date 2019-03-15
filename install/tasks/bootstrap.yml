@@ -2,9 +2,6 @@
   become: yes
   become_user: root
   tasks:
-## 设置主机hostname
-    - name: Set hostname
-      hostname: name={{ hostname }}
 ## 创建一个安全用户
     - name: Create default user
       user: name="{{ security_sudoer }}" comment="Icarbonx，Anson" shell=/bin/bash
