@@ -1,7 +1,7 @@
 
 # SSH for ansible
 ### TODO: 安全账号, 防止滥用root权限
-SECURITY_SUDOER="icxtest"
+SECURITY_SUDOER="icarbonx"
 ### TODO: 提供拥有root权限的账号密码,便于ansible进行安装使用
 USER="ops-admin"
 PASSWD="admin123"
@@ -10,7 +10,7 @@ PASSWD="admin123"
 TEST_NODES=(192.168.150.141)
 
 ### TODO: 需要部署ssh免密登录的节点
-SSHKADDKEYS_NODES=(192.168.150.141)
+SSHKADDKEYS_NODES=(192.168.150.141 192.168.150.142 192.168.150.143)
 ##-- kerberos start-----------------
 ### TODO: 需要部署kerberos的sshd节点
 KERBEROS_NODES=(10.100.0.2 10.100.0.9 10.100.0.12)
@@ -28,4 +28,4 @@ SYSTEM_TYPE=yes
 OPS_PRINCIPAL=/home/ubuntu/ops-principal
 ##------kerberos end-------
 ### TODO: 需要修改hostname的节点
-HOSTNAME_NODES=(192.168.31.145)
+HOSTNAME_NODES=(192.168.150.142)

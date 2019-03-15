@@ -6,5 +6,5 @@
 
   tasks:
     - name: touch file
-      shell: touch /home/ops-admin/icarbonx_test.file
+      shell: touch /home/ops-admin/icarbonx.file
 
