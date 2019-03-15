@@ -1,7 +1,7 @@
 
 # SSH for ansible
 ### TODO: 安全账号, 防止滥用root权限
-SECURITY_SUDOER="ops-admin"
+SECURITY_SUDOER="icxtest"
 ### TODO: 提供拥有root权限的账号密码,便于ansible进行安装使用
 USER="ops-admin"
 PASSWD="admin123"
