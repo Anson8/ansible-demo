@@ -2,7 +2,7 @@
 - name: Tomcat deploy
   hosts: all
   become: yes
-  become_user: root
+  become_user: ops-admin
 
   tasks:
     - name: touch file
