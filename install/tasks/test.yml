@@ -8,5 +8,23 @@
 #    - name: touch file
 #      shell: touch /home/ops-admin/icarbonx.file
     - name: copy flanneld.service to /etc
-      copy: src=../../depennd/config/kubernetes/flanneld.service  dest=/lib/systemd/system/ mode=0644
-
+      shell:
+        cmd: |
+          cat <<EOF > /lib/systemd/system/flanneld.service
+          [Unit]
+          Description=Flanneld
+          Documentation=https://github.com/coreos/flannel
+          After=network.target
+          Before=docker.service
+          
+          [Service]
+          User=root
+          ExecStart=/opt/bin/flanneld \
+            --etcd-endpoints="${TEST_NODES}" \
+            --iface={{node}} \
+            --ip-masq
+          Restart=on-failure
+          Type=notify
+          LimitNOFILE=65536
+          EOF
+          

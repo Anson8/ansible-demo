@@ -4,7 +4,6 @@ INSTALL_PATH="$(cd "$(dirname "${BASH_SOURCE[0]}")" && echo "$PWD")"
 TASKS_PATH=$INSTALL_PATH/tasks
 ## TODO 引入installConfig配置文件
 . $INSTALL_PATH/../config/installConfig
-. $INSTALL_PATH/../depend/config/kubernetes/flanneld.service
 . $INSTALL_PATH/common/ip-detect
 . $INSTALL_PATH/prereqs/dog.sh
 
@@ -35,7 +34,7 @@ function clusterInstaller() {
 ## TODO 测试ansible功能，创建文件
 function testAnsible(){
    echo "ansible-playbook test ansible for this $TEST_NODES"
-   ansible-playbook $TASKS_PATH/test.yml -i $TEST_NODES, -e "ansible_user=$USER ansible_port=22 ansible_ssh_pass=$PASSWD ansible_become_pass=$PASSWD condition=false"
+   ansible-playbook $TASKS_PATH/test.yml -i $TEST_NODES, -e "node=$TEST_NODES ansible_user=$USER ansible_port=22 ansible_ssh_pass=$PASSWD ansible_become_pass=$PASSWD condition=false"
 }
 
 ## TODO 部署免密登录sshAddkey
