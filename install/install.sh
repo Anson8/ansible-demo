@@ -4,6 +4,7 @@ INSTALL_PATH="$(cd "$(dirname "${BASH_SOURCE[0]}")" && echo "$PWD")"
 TASKS_PATH=$INSTALL_PATH/tasks
 ## TODO 引入installConfig配置文件
 . $INSTALL_PATH/../config/installConfig
+. $INSTALL_PATH/../depend/config/kubernetes
 . $INSTALL_PATH/common/ip-detect
 . $INSTALL_PATH/prereqs/dog.sh
 

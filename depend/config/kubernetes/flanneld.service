@@ -1,0 +1,15 @@
+[Unit]
+Description=Flanneld
+Documentation=https://github.com/coreos/flannel
+After=network.target
+Before=docker.service
+
+[Service]
+User=root
+ExecStart=/opt/bin/flanneld \
+  --etcd-endpoints="${SECURITY_SUDOER}" \
+  --iface=${TEST_NODES} \
+  --ip-masq
+Restart=on-failure
+Type=notify
+LimitNOFILE=65536
